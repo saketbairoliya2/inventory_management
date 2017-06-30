@@ -22,7 +22,7 @@ class ProductFillForm(forms.Form):
         product_detail.batch_date = self.cleaned_data['batch_date']
         product_detail.quantity = self.cleaned_data['quantity']
 
-        product_detail.status = False  
+        product_detail.approved = False  
         product_detail.soft_deleted = False
 
         product_detail.save()

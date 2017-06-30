@@ -18,5 +18,5 @@ class Product(models.Model):
 	batch_number = models.IntegerField()
 	batch_date = models.DateField()
 	quantity = models.IntegerField()
-	status = models.BooleanField(default=False)
+	approved = models.BooleanField(default=False)
 	soft_deleted = models.BooleanField(default=False)
