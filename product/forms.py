@@ -5,12 +5,12 @@ class ProductFillForm(forms.Form):
 
     name = forms.CharField()
     vendor = forms.CharField()
-    mrp = forms.DecimalField(max_digits=5, decimal_places=2)
+    mrp = forms.DecimalField(max_digits=8, decimal_places=3)
     batch_number = forms.IntegerField()
     batch_date = forms.DateField()
     quantity = forms.IntegerField()
 
-    def save(self, user):
+    def save(self, user, approved):
         product_detail = Product()
 
         product_detail.user = user
@@ -21,8 +21,8 @@ class ProductFillForm(forms.Form):
         product_detail.batch_number = self.cleaned_data['batch_number']
         product_detail.batch_date = self.cleaned_data['batch_date']
         product_detail.quantity = self.cleaned_data['quantity']
+        product_detail.approved = approved
 
-        product_detail.approved = False  
         product_detail.soft_deleted = False
 
         product_detail.save()

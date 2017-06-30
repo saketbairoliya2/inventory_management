@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Welcome. Enter Inventory Details Here</title>
+	<title>Welcome. Approve Inventory Details Here</title>
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
 	<!--Import materialize.css-->
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/css/materialize.min.css"/>
@@ -24,7 +24,7 @@
 <header>
 <nav>
     <div class="nav-wrapper teal lighten-2">
-      <a href="#!" class="brand-logo center">Enter Inventory Details here</a>
+      <a href="#!" class="brand-logo center">Approve Pending Inventory Here</a>
     </div>
 </nav>
 </header>
@@ -34,33 +34,35 @@
 <body>
 	<div class="container">
 		<div class="row">
-	  		<h6>You Can Approve Pending Inventories <a href="/product/pendingInventory/">Here</a></h6>
-	  	</div>
-		<div class="row">
-		    <div class="col s12 m5">
+		    <div class="col s6">
 		        <div class="card-panel grey lighten-4">
+		        {% if items_to_be_approved %}
 					<form method="post">
 						{% csrf_token %}
-						<div class="datesDiv">
-							<label>Product Name: </label>
-							<input name='name' type="text" />
-							<label>Vendor Name: </label>
-							<input name='vendor' type="text" />
-							<label>Maximum Retail Price(MRP): </label>
-							<input name='mrp' type="number" />
-							<label>Batch Number: </label>
-							<input name='batch_number' type="number" />
-							<label>Batch Date: </label>
-							<input name='batch_date' type="date" />
-							<label>Quantity: </label>
-							<input name='quantity' type="number" />
+						<div class="approvalDiv">
+								<section>
+								<div class="row">
+									<ul>
+									{% for item in items_to_be_approved %}
+										<li class="card">
+										Name: {{item.name}}
+										<br/>
+										Vendor: {{item.vendor}}
+										</li>
+									{% endfor %}
+									</ul>
+								</div>
+								</section>
 						</div>
-
 	  					<br/>
-						<button class="btn waves-effect waves-light deep-orange accent-3" type="submit" name="action">Submit
+						<button class="btn waves-effect waves-light deep-orange accent-3" type="submit" name="action">Approve List
 	    					
 	  					</button>
 					</form>
+					{% else %}
+						<h5> No Pending Item for Approval </h5>
+						<h6><a href="/product/">Back</a></h6>
+					{% endif %}
 				</div>
 			</div>
 		</div>

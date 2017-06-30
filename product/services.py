@@ -1,13 +1,9 @@
-from .models import Product
+from .models import Product, UserRole
 from django.contrib.auth.models import User
-from django.db.models import Q
-import datetime
 from django.conf import settings
 from django.core import serializers
 from django.core.exceptions import ObjectDoesNotExist
-import httplib2
 import json
-import os
 
 def get_inventory_details_by_product_id(product_id):
 	try:
@@ -34,5 +30,20 @@ def get_all_inventory():
 			Product.objects.all())
 	except ObjectDoesNotExist:
 		products = '[]'
-		
+
 	return json.loads(products)
+
+def get_items_to_be_approved(request):
+	products = '[]'
+	if request.user.profile.role == 'SM':
+		try:
+			products = serializers.serialize('json',\
+				Product.objects.filter(approved=False).all())
+		except ObjectDoesNotExist:
+			products = products
+	return json.loads(products)
+
+def approve_all_pending_inventory(request):
+	need_approval = Product.objects.filter(approved=False).all()
+	need_approval.update(approved=True)
+	return True
