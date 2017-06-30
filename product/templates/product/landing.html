@@ -25,6 +25,7 @@
 <nav>
     <div class="nav-wrapper teal lighten-2">
       <a href="#!" class="brand-logo center">Enter Inventory Details here</a>
+    }
     </div>
 </nav>
 </header>
@@ -33,9 +34,12 @@
 
 <body>
 	<div class="container">
+		<h6>Logged In as {{ request.user }} With Permission of {{request.user.profile.role}}</h6>
+		{% if request.user.profile.role == 'SM' %}
 		<div class="row">
 	  		<h6>You Can Approve Pending Inventories <a href="/product/pendingInventory/">Here</a></h6>
 	  	</div>
+	  	{% endif %}
 		<div class="row">
 		    <div class="col s12 m5">
 		        <div class="card-panel grey lighten-4">

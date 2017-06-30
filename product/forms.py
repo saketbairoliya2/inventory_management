@@ -2,7 +2,7 @@ from django import forms
 from .models import Product
 
 class ProductFillForm(forms.Form):
-
+    # Form For Entering the Inventory Details
     name = forms.CharField()
     vendor = forms.CharField()
     mrp = forms.DecimalField(max_digits=8, decimal_places=3)

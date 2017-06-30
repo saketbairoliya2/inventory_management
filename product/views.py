@@ -1,11 +1,11 @@
-from django.shortcuts import render, redirect
-from django.contrib.auth import login, authenticate
 from django.http import HttpResponse, HttpResponseRedirect, HttpResponseBadRequest
 from django.contrib.auth.decorators import login_required, permission_required
-from django.conf import settings
+from django.shortcuts import render, redirect
+from django.contrib.auth import login, authenticate
 from .services import get_inventory_details_by_product_id,\
 get_inventory_details_by_user_name, get_all_inventory,\
 get_items_to_be_approved, approve_all_pending_inventory
+from django.conf import settings
 from .forms import ProductFillForm
 from django.http import JsonResponse
 import datetime
@@ -33,7 +33,7 @@ def index(request):
 			return render(request, 'product/product_fail.html')
 	else:
 		form = ProductFillForm()
-	return render(request, 'product/landing.html', {'form':form})
+	return render(request, 'product/landing.html', {'form':form, 'request': request})
 
 @login_required
 def pending_inventory(request):

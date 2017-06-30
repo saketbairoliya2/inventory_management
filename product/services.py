@@ -1,8 +1,8 @@
-from .models import Product, UserRole
-from django.contrib.auth.models import User
-from django.conf import settings
-from django.core import serializers
 from django.core.exceptions import ObjectDoesNotExist
+from django.contrib.auth.models import User
+from .models import Product, UserRole
+from django.core import serializers
+from django.conf import settings
 import json
 
 def get_inventory_details_by_product_id(product_id):
